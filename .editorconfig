@@ -10,6 +10,8 @@ insert_final_newline = true
 [*.js]
 brace_style = end_of_line
 braces_for_ifelse = required
+braces_redundant = false
+ij_any_if_brace_force = always
 
 
 [*.yml]

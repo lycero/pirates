@@ -1,5 +1,7 @@
 ﻿class Constants {
 	static CloudOpacity = 0.8;
+	static FullOpacityZoom = 1.5;
+	static MinOpacityZoom = 3;
 	static MaxZoom = 16;
 }
 
@@ -13,15 +15,15 @@ let captureMouse = true;
 
 function updateOpacity(currentScale) {
 	let opacity = Constants.CloudOpacity;
-	if (currentScale <= 1.5) {
+	if (currentScale <= Constants.FullOpacityZoom) {
 		captureMouse = true;
 	}
-	if (currentScale <= 1.5) {
+	if (currentScale <= Constants.FullOpacityZoom) {
 		opacity = Constants.CloudOpacity;
-	} else if (currentScale >= 3) {
+	} else if (currentScale >= Constants.MinOpacityZoom) {
 		opacity = 0;
 	} else {
-		opacity = Constants.CloudOpacity - ((currentScale - 1.5) / (3 - 1.5));
+		opacity = Constants.CloudOpacity - ((currentScale - Constants.FullOpacityZoom) / (Constants.MinOpacityZoom - Constants.FullOpacityZoom));
 	}
 
 	// 5. Check zoom level and fade elements out if scale is higher than 2.5
@@ -61,19 +63,15 @@ container.addEventListener('wheel', (e) => {
 
 	// 3. Calculate new zoom level
 	if (e.deltaY < 0) {
-
 		scale += 0.4; // Zoom In
 	} else {
 		scale -= 1.5; // Zoom Out
 	}
 
-	// 4. Limit zoom between 1x and 5x
 	scale = Math.min(Math.max(1, scale), Constants.MaxZoom);
 
-	// 5. Apply the zoom
 	graphic.style.transform = `scale(${scale})`;
 
-	// 5. Lineare Interpolation für die Opacity (Skala 2.5 bis 6.0)
 	updateOpacity(scale);
 });
 
@@ -85,7 +83,9 @@ container.onpointermove = (e) => {
 
 	// Find and update this pointer's coordinates in the cache array
 	const index = evCache.findIndex((item) => item.pointerId === e.pointerId);
-	if (index !== -1) evCache[index] = e;
+	if (index !== -1) {
+		evCache[index] = e;
+	}
 
 	// If exactly TWO pointers are touching the container, handle pinch zoom
 	if (evCache.length === 2) {
@@ -118,8 +118,12 @@ container.onpointermove = (e) => {
 // Clean up cache when pointers leave or lift up
 function removePointer(e) {
 	const index = evCache.findIndex((item) => item.pointerId === e.pointerId);
-	if (index !== -1) evCache.splice(index, 1);
-	if (evCache.length < 2) prevDiff = -1; // Reset pinch memory
+	if (index !== -1) {
+		evCache.splice(index, 1);
+	}
+	if (evCache.length < 2) {
+		prevDiff = -1;
+	} // Reset pinch memory
 }
 
 container.onpointerup = removePointer;
