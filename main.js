@@ -1,5 +1,5 @@
 ﻿class Constants {
-	static CloudOpacity = 0.8;
+	static CloudOpacity = 0.95;
 	static FullOpacityZoom = 1.5;
 	static MinOpacityZoom = 3;
 	static MaxZoom = 16;
