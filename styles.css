@@ -1,0 +1,62 @@
+﻿body {
+	touch-action: none; /* Prevent default touch behavior */
+}
+
+/* Container hides anything sticking out when zooming */
+.zoom-container {
+	width: 100%;
+	overflow: hidden;
+	border: 2px solid #ccc;
+	position: relative;
+	cursor: zoom-in;
+	margin: 20px auto;
+	touch-action: none;
+}
+
+/* Smooth transition for the scaling effect */
+.zoom-graphic {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	/* Faster transition makes mouse tracking look much smoother */
+	transition: transform 0.1s ease-out;
+	/* Start at top-left so calculations align perfectly */
+	transform-origin: 0 0;
+	touch-action: none;
+}
+
+.zoom-element {
+	width: 100%;
+	height: 100%;
+	touch-action: none;
+}
+
+/* Styling for elements that will fade out */
+.fade-element {
+	position: absolute;
+	background: rgba(0, 0, 0, 0);
+	color: white;
+	padding: 5px 10px;
+	border-radius: 20px;
+	font-family: sans-serif;
+	font-size: 12px;
+	pointer-events: none; /* Stops elements from breaking mouse position */
+	touch-action: none;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
+	opacity: 0.8;
+	visibility: visible;
+}
+
+/* Absolute positioning examples for the hotspots */
+.cloud {
+	top: 0;
+	left: 0;
+	touch-action: none;
+}
+
+/* This class triggers the fade out */
+.fade-out {
+	opacity: 0;
+	visibility: hidden;
+	touch-action: none;
+}

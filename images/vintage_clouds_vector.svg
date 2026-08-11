@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+	width="1600"
+	height="900"
+	viewBox="0 0 1600 900"
+	version="1.1"
+	id="svg10"
+	sodipodi:docname="vintage_clouds_vector.svg"
+	xml:space="preserve"
+	inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+	xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+	xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview10"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.91688179"
+     inkscape:cx="797.26744"
+     inkscape:cy="396.45241"
+     inkscape:window-width="3440"
+     inkscape:window-height="1369"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg10" />
+	<defs
+		id="defs1"><filter
+       id="rough"
+       x="-0.00061924722"
+       y="-0.0014219751"
+       width="1.0012385"
+       height="1.002844"><feTurbulence
+         type="fractalNoise"
+         baseFrequency=".018"
+         numOctaves="2"
+         seed="7"
+         result="noise"
+         id="feTurbulence1" /><feDisplacementMap
+		in="SourceGraphic"
+		in2="noise"
+		scale="2"
+		xChannelSelector="R"
+		yChannelSelector="G"
+		id="feDisplacementMap1"/></filter>
+		<style
+			id="style1">
+      .outline { stroke:#6a5842; stroke-width:4; stroke-linejoin:round; stroke-linecap:round; }
+      .thin { stroke:#8a7659; stroke-width:2; fill:none; opacity:.65; }
+    </style>
+		<filter
+			id="rough-5"
+			x="-0.00061924722"
+			y="-0.0014219751"
+			width="1.0012385"
+			height="1.002844"><feTurbulence
+         type="fractalNoise"
+         baseFrequency=".018"
+         numOctaves="2"
+         seed="7"
+         result="noise"
+         id="feTurbulence1-5" />
+			<feDisplacementMap
+				in="SourceGraphic"
+				in2="noise"
+				scale="2"
+				xChannelSelector="R"
+				yChannelSelector="G"
+				id="feDisplacementMap1-1"/></filter>
+		<filter
+			id="rough-4"
+			x="-0.00061924722"
+			y="-0.0014219751"
+			width="1.0012385"
+			height="1.002844"><feTurbulence
+         type="fractalNoise"
+         baseFrequency=".018"
+         numOctaves="2"
+         seed="7"
+         result="noise"
+         id="feTurbulence1-2" />
+			<feDisplacementMap
+				in="SourceGraphic"
+				in2="noise"
+				scale="2"
+				xChannelSelector="R"
+				yChannelSelector="G"
+				id="feDisplacementMap1-3"/></filter>
+		<filter
+			id="rough-9"
+			x="-0.00061924722"
+			y="-0.0014219751"
+			width="1.0012385"
+			height="1.002844"><feTurbulence
+         type="fractalNoise"
+         baseFrequency=".018"
+         numOctaves="2"
+         seed="7"
+         result="noise"
+         id="feTurbulence1-27" />
+			<feDisplacementMap
+				in="SourceGraphic"
+				in2="noise"
+				scale="2"
+				xChannelSelector="R"
+				yChannelSelector="G"
+				id="feDisplacementMap1-9"/></filter>
+		<filter
+			id="rough-1"
+			x="-0.00061924722"
+			y="-0.0014219751"
+			width="1.0012385"
+			height="1.002844"><feTurbulence
+         type="fractalNoise"
+         baseFrequency=".018"
+         numOctaves="2"
+         seed="7"
+         result="noise"
+         id="feTurbulence1-3" />
+			<feDisplacementMap
+				in="SourceGraphic"
+				in2="noise"
+				scale="2"
+				xChannelSelector="R"
+				yChannelSelector="G"
+				id="feDisplacementMap1-8"/></filter>
+		<filter
+			id="rough-0"
+			x="-0.0013581959"
+			y="-0.0032941319"
+			width="1.0027164"
+			height="1.0065883"><feTurbulence
+         type="fractalNoise"
+         baseFrequency=".018"
+         numOctaves="2"
+         seed="7"
+         result="noise"
+         id="feTurbulence1-28" />
+			<feDisplacementMap
+				in="SourceGraphic"
+				in2="noise"
+				scale="2"
+				xChannelSelector="R"
+				yChannelSelector="G"
+				id="feDisplacementMap1-6"/></filter>
+		<style
+			id="style1-0">
+      .outline { stroke:#6a5842; stroke-width:4; stroke-linejoin:round; stroke-linecap:round; }
+      .thin { stroke:#8a7659; stroke-width:2; fill:none; opacity:.65; }
+    </style></defs><!-- Transparent canvas -->
+	<g
+		filter="url(#rough)"
+		id="g10"
+		transform="matrix(1.2648291,0,0,1.3409008,-113.30698,-399.89175)"
+		style="stroke-width:0.76786655;stroke-dasharray:none"><!-- Large vintage cumulus -->
+		<path
+			d="m 180,560 c -35,0 -60,-25 -60,-58 0,-34 28,-60 62,-60 6,-52 48,-92 101,-92 35,0 67,18 86,47 23,-47 70,-77 123,-77 67,0 121,51 127,117 11,-4 23,-6 36,-6 47,0 85,31 85,79 0,46 -38,80 -85,80 H 180 c -35,0 -60,-13 -60,-30 z"
+			class="outline"
+			id="path1"
+			style="stroke-width:0.76786655;stroke-dasharray:none"
+			fill="#e9e0c8"/><!-- Cloud shadow -->
+		<path
+			d="m 148.05658,557.39659 c 29.15188,10.4994 79.41375,13.2624 127.66515,9.3942 47.24616,-3.3156 80.41899,-14.92021 115.6023,-12.7098 42.21997,2.763 70.36662,13.815 117.61278,13.2624 49.25663,-0.5526 80.41899,-11.052 122.63896,-8.8416 36.18855,2.2104 62.32472,9.9468 81.42423,18.2358 C 697.92144,585.5792 677.81669,590 649.67004,590 H 178.2137 c -28.14665,0 -50.26187,-7.1838 -57.29853,-17.13061 5.02618,-6.0786 15.07856,-11.052 27.14141,-15.4728 z"
+			opacity="0.72"
+			id="path2"
+			style="stroke-width:0.76786655;stroke-dasharray:none"
+			fill="#c6b79a"/><!-- Cloud contour accents -->
+		<path
+			d="m 188,447 c 16,-26 41,-39 68,-40"
+			class="thin"
+			id="path3"
+			style="stroke-width:0.76786655;stroke-dasharray:none"/>
+		<path
+			d="m 389,405 c 23,-31 57,-48 92,-48"
+			class="thin"
+			id="path4"
+			style="stroke-width:0.76786655;stroke-dasharray:none"/>
+		<path
+			d="m 557.60154,456.54242 c 9,-26 28,-45 54,-54"
+			class="thin"
+			id="path5"
+			style="stroke-width:0.76786655;stroke-dasharray:none"/><!-- Small cloud --><!-- wispy cloud --><!-- tiny cloud --></g>
+	<g
+		filter="url(#rough)"
+		id="g10-1"
+		transform="matrix(1.2648291,0,0,1.3409008,575.96018,-282.12323)"
+		style="filter:url(#rough-5);stroke-width:0.76786655;stroke-dasharray:none"><!-- Large vintage cumulus -->
+		<path
+			d="m 180,560 c -35,0 -60,-25 -60,-58 0,-34 28,-60 62,-60 6,-52 48,-92 101,-92 35,0 67,18 86,47 23,-47 70,-77 123,-77 67,0 121,51 127,117 11,-4 23,-6 36,-6 47,0 85,31 85,79 0,46 -38,80 -85,80 H 180 c -35,0 -60,-13 -60,-30 z"
+			class="outline"
+			id="path1-1"
+			style="stroke:#6a5842;stroke-width:0.76786655;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+			fill="#e9e0c8"/><!-- Cloud shadow -->
+		<path
+			d="m 148.05658,557.39659 c 29.15188,10.4994 79.41375,13.2624 127.66515,9.3942 47.24616,-3.3156 80.41899,-14.92021 115.6023,-12.7098 42.21997,2.763 70.36662,13.815 117.61278,13.2624 49.25663,-0.5526 80.41899,-11.052 122.63896,-8.8416 36.18855,2.2104 62.32472,9.9468 81.42423,18.2358 C 697.92144,585.5792 677.81669,590 649.67004,590 H 178.2137 c -28.14665,0 -50.26187,-7.1838 -57.29853,-17.13061 5.02618,-6.0786 15.07856,-11.052 27.14141,-15.4728 z"
+			opacity="0.72"
+			id="path2-5"
+			style="stroke-width:0.76786655;stroke-dasharray:none"
+			fill="#c6b79a"/><!-- Cloud contour accents -->
+		<path
+			d="m 188,447 c 16,-26 41,-39 68,-40"
+			class="thin"
+			id="path3-2"
+			style="opacity:0.65;fill:none;stroke:#8a7659;stroke-width:0.76786655;stroke-dasharray:none"/>
+		<path
+			d="m 389,405 c 23,-31 57,-48 92,-48"
+			class="thin"
+			id="path4-7"
+			style="opacity:0.65;fill:none;stroke:#8a7659;stroke-width:0.76786655;stroke-dasharray:none"/>
+		<path
+			d="m 557.60154,456.54242 c 9,-26 28,-45 54,-54"
+			class="thin"
+			id="path5-6"
+			style="opacity:0.65;fill:none;stroke:#8a7659;stroke-width:0.76786655;stroke-dasharray:none"/><!-- Small cloud --><!-- wispy cloud --><!-- tiny cloud --></g>
+	<g
+		filter="url(#rough)"
+		id="g10-2"
+		transform="matrix(1.2648291,0,0,1.3409008,-40.609627,-108.7747)"
+		style="filter:url(#rough-4);stroke-width:0.76786655;stroke-dasharray:none"><!-- Large vintage cumulus -->
+		<path
+			d="m 180,560 c -35,0 -60,-25 -60,-58 0,-34 28,-60 62,-60 6,-52 48,-92 101,-92 35,0 67,18 86,47 23,-47 70,-77 123,-77 67,0 121,51 127,117 11,-4 23,-6 36,-6 47,0 85,31 85,79 0,46 -38,80 -85,80 H 180 c -35,0 -60,-13 -60,-30 z"
+			class="outline"
+			id="path1-16"
+			style="stroke:#6a5842;stroke-width:0.76786655;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+			fill="#e9e0c8"/><!-- Cloud shadow -->
+		<path
+			d="m 148.05658,557.39659 c 29.15188,10.4994 79.41375,13.2624 127.66515,9.3942 47.24616,-3.3156 80.41899,-14.92021 115.6023,-12.7098 42.21997,2.763 70.36662,13.815 117.61278,13.2624 49.25663,-0.5526 80.41899,-11.052 122.63896,-8.8416 36.18855,2.2104 62.32472,9.9468 81.42423,18.2358 C 697.92144,585.5792 677.81669,590 649.67004,590 H 178.2137 c -28.14665,0 -50.26187,-7.1838 -57.29853,-17.13061 5.02618,-6.0786 15.07856,-11.052 27.14141,-15.4728 z"
+			opacity="0.72"
+			id="path2-8"
+			style="stroke-width:0.76786655;stroke-dasharray:none"
+			fill="#c6b79a"/><!-- Cloud contour accents -->
+		<path
+			d="m 188,447 c 16,-26 41,-39 68,-40"
+			class="thin"
+			id="path3-5"
+			style="opacity:0.65;fill:none;stroke:#8a7659;stroke-width:0.76786655;stroke-dasharray:none"/>
+		<path
+			d="m 389,405 c 23,-31 57,-48 92,-48"
+			class="thin"
+			id="path4-76"
+			style="opacity:0.65;fill:none;stroke:#8a7659;stroke-width:0.76786655;stroke-dasharray:none"/>
+		<path
+			d="m 557.60154,456.54242 c 9,-26 28,-45 54,-54"
+			class="thin"
+			id="path5-1"
+			style="opacity:0.65;fill:none;stroke:#8a7659;stroke-width:0.76786655;stroke-dasharray:none"/><!-- Small cloud --><!-- wispy cloud --><!-- tiny cloud --></g>
+	<g
+		filter="url(#rough)"
+		id="g10-4"
+		transform="matrix(1.2648291,0,0,1.3409008,548.29746,45.330037)"
+		style="filter:url(#rough-9);stroke-width:0.76786655;stroke-dasharray:none"><!-- Large vintage cumulus -->
+		<path
+			d="m 180,560 c -35,0 -60,-25 -60,-58 0,-34 28,-60 62,-60 6,-52 48,-92 101,-92 35,0 67,18 86,47 23,-47 70,-77 123,-77 67,0 121,51 127,117 11,-4 23,-6 36,-6 47,0 85,31 85,79 0,46 -38,80 -85,80 H 180 c -35,0 -60,-13 -60,-30 z"
+			class="outline"
+			id="path1-3"
+			style="stroke:#6a5842;stroke-width:0.76786655;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+			fill="#e9e0c8"/><!-- Cloud shadow -->
+		<path
+			d="m 148.05658,557.39659 c 29.15188,10.4994 79.41375,13.2624 127.66515,9.3942 47.24616,-3.3156 80.41899,-14.92021 115.6023,-12.7098 42.21997,2.763 70.36662,13.815 117.61278,13.2624 49.25663,-0.5526 80.41899,-11.052 122.63896,-8.8416 36.18855,2.2104 62.32472,9.9468 81.42423,18.2358 C 697.92144,585.5792 677.81669,590 649.67004,590 H 178.2137 c -28.14665,0 -50.26187,-7.1838 -57.29853,-17.13061 5.02618,-6.0786 15.07856,-11.052 27.14141,-15.4728 z"
+			opacity="0.72"
+			id="path2-1"
+			style="stroke-width:0.76786655;stroke-dasharray:none"
+			fill="#c6b79a"/><!-- Cloud contour accents -->
+		<path
+			d="m 188,447 c 16,-26 41,-39 68,-40"
+			class="thin"
+			id="path3-23"
+			style="opacity:0.65;fill:none;stroke:#8a7659;stroke-width:0.76786655;stroke-dasharray:none"/>
+		<path
+			d="m 389,405 c 23,-31 57,-48 92,-48"
+			class="thin"
+			id="path4-3"
+			style="opacity:0.65;fill:none;stroke:#8a7659;stroke-width:0.76786655;stroke-dasharray:none"/>
+		<path
+			d="m 557.60154,456.54242 c 9,-26 28,-45 54,-54"
+			class="thin"
+			id="path5-4"
+			style="opacity:0.65;fill:none;stroke:#8a7659;stroke-width:0.76786655;stroke-dasharray:none"/><!-- Small cloud --><!-- wispy cloud --><!-- tiny cloud --></g>
+	<g
+		filter="url(#rough)"
+		id="g10-42"
+		transform="matrix(1.2648291,0,0,1.3409008,-114.36582,84.97024)"
+		style="filter:url(#rough-1);stroke-width:0.76786655;stroke-dasharray:none"><!-- Large vintage cumulus -->
+		<path
+			d="m 180,560 c -35,0 -60,-25 -60,-58 0,-34 28,-60 62,-60 6,-52 48,-92 101,-92 35,0 67,18 86,47 23,-47 70,-77 123,-77 67,0 121,51 127,117 11,-4 23,-6 36,-6 47,0 85,31 85,79 0,46 -38,80 -85,80 H 180 c -35,0 -60,-13 -60,-30 z"
+			class="outline"
+			id="path1-7"
+			style="stroke:#6a5842;stroke-width:0.76786655;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+			fill="#e9e0c8"/><!-- Cloud shadow -->
+		<path
+			d="m 148.05658,557.39659 c 29.15188,10.4994 79.41375,13.2624 127.66515,9.3942 47.24616,-3.3156 80.41899,-14.92021 115.6023,-12.7098 42.21997,2.763 70.36662,13.815 117.61278,13.2624 49.25663,-0.5526 80.41899,-11.052 122.63896,-8.8416 36.18855,2.2104 62.32472,9.9468 81.42423,18.2358 C 697.92144,585.5792 677.81669,590 649.67004,590 H 178.2137 c -28.14665,0 -50.26187,-7.1838 -57.29853,-17.13061 5.02618,-6.0786 15.07856,-11.052 27.14141,-15.4728 z"
+			opacity="0.72"
+			id="path2-7"
+			style="stroke-width:0.76786655;stroke-dasharray:none"
+			fill="#c6b79a"/><!-- Cloud contour accents -->
+		<path
+			d="m 188,447 c 16,-26 41,-39 68,-40"
+			class="thin"
+			id="path3-9"
+			style="opacity:0.65;fill:none;stroke:#8a7659;stroke-width:0.76786655;stroke-dasharray:none"/>
+		<path
+			d="m 389,405 c 23,-31 57,-48 92,-48"
+			class="thin"
+			id="path4-31"
+			style="opacity:0.65;fill:none;stroke:#8a7659;stroke-width:0.76786655;stroke-dasharray:none"/>
+		<path
+			d="m 557.60154,456.54242 c 9,-26 28,-45 54,-54"
+			class="thin"
+			id="path5-9"
+			style="opacity:0.65;fill:none;stroke:#8a7659;stroke-width:0.76786655;stroke-dasharray:none"/><!-- Small cloud --><!-- wispy cloud --><!-- tiny cloud --></g>
+	<g
+		filter="url(#rough)"
+		id="g10-24"
+		style="filter:url(#rough-0);stroke-width:0.88282736;stroke-dasharray:none"
+		transform="matrix(1.0757168,0,0,1.1927529,-28.320527,-101.1417)"><!-- Large vintage cumulus --><!-- Cloud shadow --><!-- Cloud contour accents --><!-- Small cloud -->
+		<path
+			d="m 865,285 c -23,0 -41,-17 -41,-39 0,-23 19,-41 43,-41 10,-35 41,-60 79,-60 28,0 52,14 67,36 17,-28 46,-44 79,-44 46,0 83,36 87,79 7,-2 14,-3 22,-3 32,0 57,24 57,54 0,30 -24,52 -57,52 H 865 c -25,0 -41,-15 -41,-34 z"
+			class="outline"
+			id="path6"
+			style="stroke-width:0.88282736;stroke-dasharray:none"
+			fill="#eee6d2"/>
+		<path
+			d="m 845,285 c 35,16 73,15 107,7 33,-7 56,-18 88,-12 30,6 50,19 85,19 38,0 67,-13 96,-8 17,3 29,10 36,17 -14,8 -31,11 -56,11 H 866 c -20,0 -34,-12 -40,-25 z"
+			opacity="0.68"
+			id="path7"
+			style="stroke-width:0.88282736;stroke-dasharray:none"
+			fill="#c8b99d"/><!-- wispy cloud -->
+		<path
+			d="m 1080,575 c 35,-25 72,-32 109,-22 35,10 64,30 102,26 40,-4 70,-30 110,-26 34,4 56,25 66,48 -36,-9 -66,-8 -97,7 -34,16 -64,23 -100,14 -39,-10 -67,-32 -105,-32 -34,0 -62,14 -91,28 -22,-14 -22,-29 6,-43 z"
+			class="outline"
+			id="path8"
+			style="stroke-width:0.88282736;stroke-dasharray:none"
+			fill="#e5dbc2"/><!-- tiny cloud -->
+		<path
+			d="m 70.626219,489.51283 c -18,0 -32,-14 -32,-32 0,-18 14,-32 33,-32 6.999996,-28 30.999991,-46 58.999991,-46 21,0 39,10 50,27 13,-19 34,-30 58,-30 34,0 61,25 64,57 5,-2 11,-3 17,-3 25,0 44,18 44,41 0,23 -19,39 -44,39 H 70.626219 c -20,0 -32,-9 -32,-21 z"
+			class="outline"
+			id="path9"
+			style="stroke-width:0.88282736;stroke-dasharray:none"
+			fill="#ece3ce"/>
+		<path
+			d="m 56.626219,487.51283 c 25.999996,11 53.999991,9 77.999991,3 26,-6 43,-15 66,-10 24,5 37,16 61,16 26,0 46,-10 67,-7 15,2 26,9 32,14 -11,6 -25,7 -42,7 H 71.626219 c -16,0 -27,-9 -31,-16 z"
+			opacity="0.68"
+			id="path10"
+			style="stroke-width:0.88282736;stroke-dasharray:none"
+			fill="#c7b89d"/>
+		<path
+			d="m 1195.9123,792.5579 c -18,0 -32,-14 -32,-32 0,-18 14,-32 33,-32 7,-28 31,-46 59,-46 21,0 39,10 50,27 13,-19 34,-30 58,-30 34,0 61,25 64,57 5,-2 11,-3 17,-3 25,0 44,18 44,41 0,23 -19,39 -44,39 h -249 c -20,0 -32,-9 -32,-21 z"
+			class="outline"
+			id="path9-3"
+			style="stroke:#6a5842;stroke-width:0.88282736;stroke-linecap:round;stroke-linejoin:round;filter:url(#rough-0);stroke-dasharray:none"
+			fill="#ece3ce"/>
+		<path
+			d="m 1181.9123,790.5579 c 26,11 54,9 78,3 26,-6 43,-15 66,-10 24,5 37,16 61,16 26,0 46,-10 67,-7 15,2 26,9 32,14 -11,6 -25,7 -42,7 h -247 c -16,0 -27,-9 -31,-16 z"
+			opacity="0.68"
+			id="path10-4"
+			style="filter:url(#rough-0);stroke-width:0.88282736;stroke-dasharray:none"
+			fill="#c7b89d"/>
+		<path
+			d="m 888.53409,541.47133 c -18,0 -32,-14 -32,-32 0,-18 14,-32 33,-32 7,-28 31,-46 59,-46 21,0 39,10 50,27 13.00001,-19 34.00001,-30 58.00001,-30 34,0 61,25 64,57 5,-2 11,-3 17,-3 25,0 44,18 44,41 0,23 -19,39 -44,39 H 888.53409 c -20,0 -32,-9 -32,-21 z"
+			class="outline"
+			id="path9-1"
+			style="stroke:#6a5842;stroke-width:0.88282736;stroke-linecap:round;stroke-linejoin:round;filter:url(#rough-0);stroke-dasharray:none"
+			fill="#ece3ce"/>
+		<path
+			d="m 874.53409,539.47133 c 26,11 54,9 78,3 26,-6 43,-15 66.00001,-10 24,5 37,16 61,16 26,0 46,-10 67,-7 15,2 26,9 32,14 -11,6 -25,7 -42,7 H 889.53409 c -16,0 -27,-9 -31,-16 z"
+			opacity="0.68"
+			id="path10-3"
+			style="filter:url(#rough-0);stroke-width:0.88282736;stroke-dasharray:none"
+			fill="#c7b89d"/></g></svg>

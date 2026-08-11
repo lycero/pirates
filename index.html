@@ -1,220 +1,29 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="favicon.png">
-    <title>Caradima Map</title>
-    <style>
-
-        body {
-            touch-action: none; /* Prevent default touch behavior */
-        }
-        
-        /* Container hides anything sticking out when zooming */
-        .zoom-container {
-            width: 100%;
-            overflow: hidden;
-            border: 2px solid #ccc;
-            position: relative;
-            cursor: zoom-in;
-            margin: 20px auto;
-            touch-action: none;
-        }
-
-        /* Smooth transition for the scaling effect */
-        .zoom-graphic {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            /* Faster transition makes mouse tracking look much smoother */
-            transition: transform 0.1s ease-out;
-            /* Start at top-left so calculations align perfectly */
-            transform-origin: 0 0;
-            touch-action: none;
-        }
-
-        .zoom-element {
-            width: 100%;
-            height: 100%;
-            touch-action: none;
-        }
-
-        /* Styling for elements that will fade out */
-        .fade-element {
-            position: absolute;
-            background: rgba(0, 0, 0, 0);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-family: sans-serif;
-            font-size: 12px;
-            pointer-events: none; /* Stops elements from breaking mouse position */
-            touch-action: none;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            opacity: 0.8;
-            visibility: visible;
-        }
-
-        /* Absolute positioning examples for the hotspots */
-        .cloud-1 { top: 0%; left: 0%;  touch-action: none;}
-
-        /* This class triggers the fade out */
-        .fade-out {
-            opacity: 0;
-            visibility: hidden;
-            touch-action: none;
-        }
-    </style>
+	<meta charset="UTF-8">
+	<link rel="icon" type="image/x-icon" href="images/favicon.png">
+	<title>Caradima Map</title>
+	<link href="styles.css" rel="stylesheet"/>
+	<script src="main.js" defer></script>
 </head>
 <body>
 
 <div class="zoom-container" id="container">
-    <div class="zoom-graphic" id="graphic">        
-        <img src="vintage_ocean_blank_map.svg" alt="Caradima" class="zoom-element">       
-        <a href="https://portbeluge.pages.dev/">            
-            <img src="portbeluge.png" style="left: 65%; top:45%; width: 100px; height: 100px; position: absolute" alt="Port Beluge">
-        </a>
-        <img src="meteor.png" style="left: 67%; top:38%; width: 50px; height: 50px; position: absolute" alt="Meteor">
-        <img src="isle_a.svg" style="left: 87%; top:45%; width: 100px; height: 100px; position: absolute" alt="San Cordera">
-        <img src="isle_b.svg" style="left: 80%; top:55%; width: 100px; height: 100px; position: absolute" alt="Jhervé">
-        <img src="vintage_clouds_vector.svg" alt="clouds" class="fade-element cloud-1 zoom-element">
-    </div>
+	<div class="zoom-graphic" id="graphic">
+		<img src="images/vintage_ocean_blank_map.svg" alt="Caradima" class="zoom-element">
+		<a href="https://portbeluge.pages.dev/">
+			<img src="images/portbeluge.png" style="left: 65%; top:45%; width: 100px; height: 100px; position: absolute"
+				 alt="Port Beluge">
+		</a>
+		<img src="images/meteor.png" style="left: 67%; top:38%; width: 50px; height: 50px; position: absolute"
+			 alt="Meteor">
+		<img src="images/isle_a.svg" style="left: 87%; top:45%; width: 100px; height: 100px; position: absolute"
+			 alt="San Cordera">
+		<img src="images/isle_b.svg" style="left: 80%; top:55%; width: 100px; height: 100px; position: absolute"
+			 alt="Jhervé">
+		<img src="images/vintage_clouds_vector.svg" alt="clouds" class="fade-element cloud zoom-element">
+	</div>
 </div>
-
-<script>
-    const container = document.getElementById('container');
-    const graphic = document.getElementById('graphic');
-    const fadeElements = document.querySelectorAll('.fade-element');
-    let scale = 1;
-    let evCache = []; // Stores active pointer contacts (fingers/mouse)
-    let prevDiff = -1; // Stores distance between two fingers
-    let captureMouse = true;
-
-    function updateOpacity(currentScale) {
-        let opacity = 0.8;
-        if (currentScale <= 1.5) {
-            captureMouse = true;
-        }
-        if (currentScale <= 1.5) {
-            opacity = 0.8;
-        } else if (currentScale >= 3) {
-            opacity = 0;
-        } else {
-            opacity = 0.8 - ((currentScale - 1.5) / (3 - 1.5));
-        }
-
-        // 5. Check zoom level and fade elements out if scale is higher than 2.5
-        fadeElements.forEach(element => {
-            element.style.opacity = opacity;
-
-            // Performance-Optimierung: Klickbarkeit abschalten, wenn unsichtbar
-            if (opacity === 0) {
-                element.style.visibility = 'hidden';
-            } else {
-                element.style.visibility = 'visible';
-            }
-        });
-    }
-
-    // HILFSFUNKTION: Berechnet den Abstand zwischen zwei Touch-Punkten (Satz des Pythagoras)
-    function getDistance(touch1, touch2) {
-        const dx = touch1.clientX - touch2.clientX;
-        const dy = touch1.clientY - touch2.clientY;
-        return Math.sqrt(dx * dx + dy * dy);
-    }
-    
-    container.addEventListener('wheel', (e) => {
-        e.preventDefault(); // Stop page scrolling
-
-        // 1. Get container dimensions and mouse position inside it
-        const rect = container.getBoundingClientRect();
-
-        if(captureMouse){
-            const mouseX = e.clientX - rect.left;
-            const mouseY = e.clientY - rect.top;
-
-            // 2. Set the transform origin to the current mouse coordinates
-            graphic.style.transformOrigin = `${mouseX}px ${mouseY}px`;
-            captureMouse = false;
-        }
-        
-        // 3. Calculate new zoom level
-        if (e.deltaY < 0) {
-
-            scale += 0.4; // Zoom In
-        } else {
-            scale -= 1.5; // Zoom Out
-        }
-
-        // 4. Limit zoom between 1x and 5x
-        scale = Math.min(Math.max(1, scale), 16);
-
-        // 5. Apply the zoom
-        graphic.style.transform = `scale(${scale})`;
-
-        // 5. Lineare Interpolation für die Opacity (Skala 2.5 bis 6.0)
-        updateOpacity(scale);
-    });
-    
-    container.onpointerdown = (e) => {
-        evCache.push(e); // Cache the new finger touch
-    };
-
-    container.onpointermove = (e) => {
-      
-        // Find and update this pointer's coordinates in the cache array
-        const index = evCache.findIndex((item) => item.pointerId === e.pointerId);
-        if (index !== -1) evCache[index] = e;
-
-        // If exactly TWO pointers are touching the container, handle pinch zoom
-        if (evCache.length === 2) {            
-            const rect = container.getBoundingClientRect();
-
-            //1. Calculate continuous focal center point between both fingers
-            const midX = ((evCache[0].clientX + evCache[1].clientX) / 2) - rect.left;
-            const midY = ((evCache[0].clientY + evCache[1].clientY) / 2) - rect.top;
-            graphic.style.transformOrigin = `${midX}px ${midY}px`;
-
-            // 2. Measure current distance between fingers
-            const curDiff = Math.hypot(
-                evCache[0].clientX - evCache[1].clientX,
-                evCache[0].clientY - evCache[1].clientY,
-            );
-
-            if (prevDiff > 0) {
-                // Adjust zoom speed multiplier based on movement direction
-                const delta = (curDiff - prevDiff) * 0.005;
-                scale += delta;
-                scale = Math.min(Math.max(1, scale), 16);
-
-                graphic.style.transform = `scale(${scale})`;
-               // wrapper.style.transform = `scale(${scale})`;
-                updateOpacity(scale);         
-            }
-            prevDiff = curDiff;
-        }
-    };
-
-    // Clean up cache when pointers leave or lift up
-    function removePointer(e) {
-        const index = evCache.findIndex((item) => item.pointerId === e.pointerId);
-        if (index !== -1) evCache.splice(index, 1);
-        if (evCache.length < 2) prevDiff = -1; // Reset pinch memory
-    }
-
-    container.onpointerup = removePointer;
-    container.onpointercancel = removePointer;
-    container.onpointerout = removePointer;
-    container.onpointerleave = removePointer;
-    
-    // Optional: Reset zoom if mouse leaves the container
-    container.addEventListener('mouseleave', () => {
-        scale = 1;
-        graphic.style.transform = `scale(1)`;
-        evCache = [];
-        prevDiff = -1;
-        updateOpacity(1);
-    });
-</script>
 </body>
 </html>
