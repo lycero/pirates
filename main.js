@@ -92,8 +92,8 @@ container.onpointermove = (e) => {
 		const rect = container.getBoundingClientRect();
 
 		//1. Calculate continuous focal center point between both fingers
-		const midX = rect.left + ((evCache[0].clientX + evCache[1].clientX) / 2) - rect.width;
-		const midY = rect.top + ((evCache[0].clientY + evCache[1].clientY) / 2) - rect.height;
+		const midX = ((evCache[0].clientX + evCache[1].clientX) / 2) - rect.width;
+		const midY = ((evCache[0].clientY + evCache[1].clientY) / 2) - rect.height;
 		graphic.style.transformOrigin = `${midX}px ${midY}px`;
 
 		// 2. Measure current distance between fingers
