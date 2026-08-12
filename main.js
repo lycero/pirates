@@ -80,7 +80,6 @@ container.onpointerdown = (e) => {
 };
 
 container.onpointermove = (e) => {
-
 	// Find and update this pointer's coordinates in the cache array
 	const index = evCache.findIndex((item) => item.pointerId === e.pointerId);
 	if (index !== -1) {
@@ -92,9 +91,10 @@ container.onpointermove = (e) => {
 		const rect = container.getBoundingClientRect();
 
 		//1. Calculate continuous focal center point between both fingers
-		const midX = ((evCache[0].clientX + evCache[1].clientX) / 2) - rect.width;
-		const midY = ((evCache[0].clientY + evCache[1].clientY) / 2) - rect.height;
+		const midX = ((evCache[0].clientX + evCache[1].clientX) / 2) - rect.left;
+		const midY = ((evCache[0].clientY + evCache[1].clientY) / 2) - rect.top;
 		graphic.style.transformOrigin = `${midX}px ${midY}px`;
+		//graphic.style.transformOrigin = `50% 50%`;
 
 		// 2. Measure current distance between fingers
 		const curDiff = Math.hypot(
