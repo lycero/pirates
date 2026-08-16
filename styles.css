@@ -1,34 +1,43 @@
 ﻿body {
-	/*touch-action: none; !* Prevent default touch behavior *!*/
+	margin: 0;
 }
 
 /* Container hides anything sticking out when zooming */
 .zoom-container {
 	width: 100%;
+	height: 85vh;
 	overflow: hidden;
 	border: 2px solid #ccc;
 	position: relative;
-	cursor: zoom-in;
-	margin: 20px auto;
-	touch-action: pinch-zoom pan-x pan-y;
+	cursor: grab;
+	margin: 0 auto;
+	/* All gestures are handled in JS (pinch zoom + pan) */
+	touch-action: none;
+	user-select: none;
+	-webkit-user-select: none;
 }
 
-/* Smooth transition for the scaling effect */
+.zoom-container:active {
+	cursor: grabbing;
+}
+
 .zoom-graphic {
 	width: 100%;
 	height: 100%;
-	object-fit: contain;
-	/* Faster transition makes mouse tracking look much smoother */
-	transition: transform 0.1s ease-out;
-	/* Start at top-left so calculations align perfectly */
+	/* Translate/scale math assumes the origin sits at the top-left */
 	transform-origin: 0 0;
-	touch-action: pinch-zoom pan-x pan-y;
+	touch-action: none;
+}
+
+.zoom-graphic img {
+	-webkit-user-drag: none;
+	user-select: none;
+	-webkit-touch-callout: none;
 }
 
 .zoom-element {
 	width: 100%;
 	height: 100%;
-	/*touch-action: none;*/
 }
 
 /* Styling for elements that will fade out */
@@ -40,23 +49,20 @@
 	border-radius: 20px;
 	font-family: sans-serif;
 	font-size: 12px;
-	pointer-events: none; /* Stops elements from breaking mouse position */
-	/*touch-action: none;*/
+	pointer-events: none; /* Stops elements from breaking pointer position */
 	transition: opacity 0.3s ease, visibility 0.3s ease;
 	opacity: 0.8;
 	visibility: visible;
 }
 
-/* Absolute positioning examples for the hotspots */
+/* Absolute positioning for the cloud overlay */
 .cloud {
 	top: 0;
 	left: 0;
-	/*touch-action: none;*/
 }
 
 /* This class triggers the fade out */
 .fade-out {
 	opacity: 0;
 	visibility: hidden;
-	/*touch-action: none;*/
 }
