@@ -185,12 +185,12 @@
 				"zoom-element"
 			],
 			"position": {
-				"left": 0,
-				"top": 0
+				"left": -500,
+				"top": -1000
 			},
 			"size": {
-				"width": "100%",
-				"height": "100%"
+				"width": 3000,
+				"height": 3000
 			},
 			"fixedPosition": false
 		}

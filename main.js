@@ -1,5 +1,5 @@
 ﻿class Constants {
-	static CloudOpacity = 0.95;
+	static CloudOpacity = 0.75;
 	static FullOpacityZoom = 1.5;
 	static MinOpacityZoom = 3;
 	static MaxZoom = 16;
@@ -49,10 +49,10 @@ function createMapObject(obj) {
 		img.alt = obj.alt || '';
 		img.draggable = false;
 		img.style.position = 'absolute';
-		img.style.left = obj.position.left;
-		img.style.top = obj.position.top;
-		img.style.width = obj.size.width;
-		img.style.height = obj.size.height;
+		img.style.left = `${obj.position.left}px`;
+		img.style.top = `${obj.position.top}px`;
+		img.style.width =`${obj.size.width}px`;
+		img.style.height = `${obj.size.height}px`;
 		if (obj.classes) {
 			obj.classes.forEach(cls => img.classList.add(cls));
 		}
@@ -206,7 +206,7 @@ viewport.addEventListener('wheel', (e) => {
 
 	const rect = viewport.getBoundingClientRect();
 	const factor = Math.pow(1.1, -e.deltaY / 100);
-	const newScale = Math.min(Math.max(1, scale * factor), Constants.MaxZoom);
+	const newScale = Math.min(Math.max(0.5, scale * factor), Constants.MaxZoom);
 
 	zoomAtPoint(newScale, e.clientX - rect.left, e.clientY - rect.top);
 }, { passive: false });
