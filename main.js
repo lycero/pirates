@@ -28,9 +28,18 @@ async function loadMapObjects() {
     });
 
     fadeElements = document.querySelectorAll('.fade-element');
+
+    centerOnMapPoint(1050, 450);
   } catch (error) {
     console.error('Failed to load map objects:', error);
   }
+}
+
+function centerOnMapPoint(mapX, mapY) {
+  const rect = viewport.getBoundingClientRect();
+  translateX = rect.width / 2 - mapX * scale;
+  translateY = rect.height / 2 - mapY * scale;
+  updateTransform();
 }
 
 function createMapObject(obj) {
