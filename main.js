@@ -40,10 +40,19 @@ function createMapObject(obj) {
     img.alt = obj.alt || '';
     img.draggable = false;
     img.style.position = 'absolute';
-    img.style.left = obj.position.left;
-    img.style.top = obj.position.top;
-    img.style.width = obj.size.width;
-    img.style.height = obj.size.height;
+
+    const isFixed = obj.fixedPosition !== false;
+    if (isFixed) {
+      img.style.left = `${obj.position.left}px`;
+      img.style.top = `${obj.position.top}px`;
+      img.style.width = `${obj.size.width}px`;
+      img.style.height = `${obj.size.height}px`;
+    } else {
+      img.style.left = obj.position.left;
+      img.style.top = obj.position.top;
+      img.style.width = obj.size.width;
+      img.style.height = obj.size.height;
+    }
 
     if (obj.classes) {
       obj.classes.forEach(cls => img.classList.add(cls));

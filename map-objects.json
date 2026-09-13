@@ -5,37 +5,42 @@
       "src": "images/portbeluge.png",
       "alt": "Port Beluge",
       "href": "https://portbeluge.pages.dev/",
-      "position": { "left": "65%", "top": "45%" },
-      "size": { "width": "100px", "height": "100px" }
+      "position": { "left": 1050, "top": 450 },
+      "size": { "width": 100, "height": 100 },
+      "fixedPosition": true
     },
     {
       "type": "image",
       "src": "images/meteor.png",
       "alt": "Meteor",
-      "position": { "left": "67%", "top": "38%" },
-      "size": { "width": "50px", "height": "50px" }
+      "position": { "left": 1082, "top": 380 },
+      "size": { "width": 50, "height": 50 },
+      "fixedPosition": true
     },
     {
       "type": "image",
       "src": "images/isle_a.svg",
       "alt": "San Cordera",
-      "position": { "left": "87%", "top": "45%" },
-      "size": { "width": "100px", "height": "100px" }
+      "position": { "left": 1405, "top": 450 },
+      "size": { "width": 100, "height": 100 },
+      "fixedPosition": true
     },
     {
       "type": "image",
       "src": "images/isle_b.svg",
       "alt": "Jhervé",
-      "position": { "left": "80%", "top": "55%" },
-      "size": { "width": "100px", "height": "100px" }
+      "position": { "left": 1292, "top": 550 },
+      "size": { "width": 100, "height": 100 },
+      "fixedPosition": true
     },
     {
       "type": "image",
       "src": "images/vintage_clouds_vector.svg",
       "alt": "clouds",
       "classes": ["fade-element", "cloud", "zoom-element"],
-      "position": { "left": "0", "top": "0" },
-      "size": { "width": "100%", "height": "100%" }
+      "position": { "left": 0, "top": 0 },
+      "size": { "width": "100%", "height": "100%" },
+      "fixedPosition": false
     }
   ]
 }
