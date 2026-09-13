@@ -5,8 +5,12 @@
 	static MaxZoom = 16;
 }
 
-const container = document.getElementById('container');
-const graphic = document.getElementById('graphic');
+const MAP_WIDTH = 1615;
+const MAP_HEIGHT = 1000;
+
+const viewport = document.getElementById('viewport');
+const mapContent = document.getElementById('map-content');
+const coordsEl = document.getElementById('coords');
 const fadeElements = document.querySelectorAll('.fade-element');
 
 let scale = 1;
@@ -20,7 +24,8 @@ let panOrigin = null; // {x, y} translate value when panning started
 let dragged = false; // True if a drag moved beyond the click threshold
 
 function updateTransform() {
-	graphic.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+	mapContent.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+	updateCenterCoords();
 }
 
 function updateOpacity(currentScale) {
@@ -39,7 +44,7 @@ function updateOpacity(currentScale) {
 	});
 }
 
-// Keeps the container-space point (px, py) fixed while changing the zoom level
+// Keeps the viewport-space point (px, py) fixed while changing the zoom level
 function zoomAtPoint(newScale, px, py) {
 	const ratio = newScale / scale;
 	translateX = px - (px - translateX) * ratio;
@@ -49,20 +54,71 @@ function zoomAtPoint(newScale, px, py) {
 	updateOpacity(scale);
 }
 
-// Prevent the browser from starting a native drag on the images
-container.addEventListener('dragstart', (e) => e.preventDefault());
+/* ------------------------------------------------------------------ */
+/* Coordinate readout                                                  */
+/* ------------------------------------------------------------------ */
 
-container.addEventListener('wheel', (e) => {
+// Converts a screen point inside the viewport into map pixel coordinates
+function viewportToMap(clientX, clientY, rect) {
+	const localX = (clientX - rect.left - translateX) / scale;
+	const localY = (clientY - rect.top - translateY) / scale;
+	return {
+		x: (localX / rect.width) * MAP_WIDTH,
+		y: (localY / rect.height) * MAP_HEIGHT,
+	};
+}
+
+// Maps map pixels onto a pseudo lat/long grid (equirectangular style)
+function toLatLon(mapX, mapY) {
+	return {
+		lat: ((MAP_HEIGHT / 2 - mapY) / (MAP_HEIGHT / 2)) * 90,
+		lon: ((mapX - MAP_WIDTH / 2) / (MAP_WIDTH / 2)) * 180,
+	};
+}
+
+function toDegMin(value) {
+	const abs = Math.abs(value);
+	const deg = Math.floor(abs);
+	let min = Math.round((abs - deg) * 60);
+	if (min === 60) {
+		min = 0;
+		return `${deg + 1}\u00B0 00\u2032`;
+	}
+	return `${deg}\u00B0 ${String(min).padStart(2, '0')}\u2032`;
+}
+
+function setCoords(clientX, clientY) {
+	const rect = viewport.getBoundingClientRect();
+	const { x, y } = viewportToMap(clientX, clientY, rect);
+	const { lat, lon } = toLatLon(x, y);
+	const ns = lat < 0 ? 'S' : 'N';
+	const ew = lon < 0 ? 'W' : 'E';
+	coordsEl.textContent = `${toDegMin(lat)} ${ns}   \u00B7   ${toDegMin(lon)} ${ew}`;
+}
+
+function updateCenterCoords() {
+	const rect = viewport.getBoundingClientRect();
+	setCoords(rect.left + rect.width / 2, rect.top + rect.height / 2);
+}
+
+/* ------------------------------------------------------------------ */
+/* Interactions                                                        */
+/* ------------------------------------------------------------------ */
+
+// Prevent the browser from starting a native drag on the images
+viewport.addEventListener('dragstart', (e) => e.preventDefault());
+
+viewport.addEventListener('wheel', (e) => {
 	e.preventDefault();
 
-	const rect = container.getBoundingClientRect();
+	const rect = viewport.getBoundingClientRect();
 	const factor = Math.pow(1.1, -e.deltaY / 100);
 	const newScale = Math.min(Math.max(1, scale * factor), Constants.MaxZoom);
 
 	zoomAtPoint(newScale, e.clientX - rect.left, e.clientY - rect.top);
 }, { passive: false });
 
-container.addEventListener('pointerdown', (e) => {
+viewport.addEventListener('pointerdown', (e) => {
 	if (e.pointerType === 'mouse' && e.button !== 0) return;
 
 	pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
@@ -79,13 +135,13 @@ container.addEventListener('pointerdown', (e) => {
 	}
 
 	try {
-		container.setPointerCapture(e.pointerId);
+		viewport.setPointerCapture(e.pointerId);
 	} catch (err) {
 		// Pointer may already be gone; ignore
 	}
 });
 
-container.addEventListener('pointermove', (e) => {
+viewport.addEventListener('pointermove', (e) => {
 	if (!pointers.has(e.pointerId)) return;
 
 	pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
@@ -99,7 +155,7 @@ container.addEventListener('pointermove', (e) => {
 
 		if (pinchDist > 0 && dist > 0) {
 			const newScale = Math.min(Math.max(1, scale * (dist / pinchDist)), Constants.MaxZoom);
-			const rect = container.getBoundingClientRect();
+			const rect = viewport.getBoundingClientRect();
 			zoomAtPoint(newScale, midX - rect.left, midY - rect.top);
 		}
 		pinchDist = dist;
@@ -136,16 +192,26 @@ function endPointer(e) {
 	}
 }
 
-container.addEventListener('pointerup', endPointer);
-container.addEventListener('pointercancel', endPointer);
+viewport.addEventListener('pointerup', endPointer);
+viewport.addEventListener('pointercancel', endPointer);
 window.addEventListener('pointerup', endPointer);
 window.addEventListener('pointercancel', endPointer);
 
 // Suppress clicks that happen right after a drag so panning doesn't trigger links
-container.addEventListener('click', (e) => {
+viewport.addEventListener('click', (e) => {
 	if (dragged) {
 		e.preventDefault();
 		e.stopPropagation();
 		dragged = false;
 	}
 }, true);
+
+/* ------------------------------------------------------------------ */
+/* Hover live coordinates                                              */
+/* ------------------------------------------------------------------ */
+
+viewport.addEventListener('pointermove', (e) => {
+	if (pointers.size > 0) return;
+
+	setCoords(e.clientX, e.clientY);
+});

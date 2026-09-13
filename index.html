@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="icon" type="image/x-icon" href="images/favicon.png">
 	<title>Caradima Map</title>
 	<link href="styles.css" rel="stylesheet"/>
@@ -9,21 +10,62 @@
 </head>
 <body>
 
-<div class="zoom-container" id="container">
-	<div class="zoom-graphic" id="graphic">
-		<img src="images/vintage_ocean_blank_map.svg" alt="Caradima" class="zoom-element" draggable="false">
-		<a href="https://portbeluge.pages.dev/">
-			<img src="images/portbeluge.png" style="left: 65%; top:45%; width: 100px; height: 100px; position: absolute"
-				 alt="Port Beluge">
-		</a>
-		<img src="images/meteor.png" style="left: 67%; top:38%; width: 50px; height: 50px; position: absolute"
-			 alt="Meteor">
-		<img src="images/isle_a.svg" style="left: 87%; top:45%; width: 100px; height: 100px; position: absolute"
-			 alt="San Cordera">
-		<img src="images/isle_b.svg" style="left: 80%; top:55%; width: 100px; height: 100px; position: absolute"
-			 alt="Jhervé">
-		<img src="images/vintage_clouds_vector.svg" alt="clouds" class="fade-element cloud zoom-element">
+<div class="map-frame">
+	<header class="map-title" aria-label="Map title">
+		<h1>Caradima</h1>
+		<span class="map-subtitle">Chart of the Caradima Archipelago</span>
+	</header>
+
+	<div class="map-viewport" id="viewport">
+		<div class="map-content" id="map-content">
+			<img src="images/vintage_ocean_blank_map.svg" alt="Caradima" class="zoom-element" draggable="false">
+			<a href="https://portbeluge.pages.dev/">
+				<img src="images/portbeluge.png" style="left: 65%; top:45%; width: 100px; height: 100px; position: absolute"
+					 alt="Port Beluge">
+			</a>
+			<img src="images/meteor.png" style="left: 67%; top:38%; width: 50px; height: 50px; position: absolute"
+				 alt="Meteor">
+			<img src="images/isle_a.svg" style="left: 87%; top:45%; width: 100px; height: 100px; position: absolute"
+				 alt="San Cordera">
+			<img src="images/isle_b.svg" style="left: 80%; top:55%; width: 100px; height: 100px; position: absolute"
+				 alt="Jhervé">
+			<img src="images/vintage_clouds_vector.svg" alt="clouds" class="fade-element cloud zoom-element">
+		</div>
+
+		<div class="map-coords" id="coords">—</div>
 	</div>
+
+	<svg class="windrose" viewBox="0 0 220 220" aria-hidden="true">
+		<g transform="translate(110 110)">
+			<circle r="100" fill="rgba(216,201,163,0.4)" stroke="#6b4f2a" stroke-width="2"/>
+			<circle r="72" fill="none" stroke="#6b4f2a" stroke-width="1" opacity="0.5"/>
+			<g stroke="#6b4f2a" stroke-width="1.2" opacity="0.8">
+				<line x1="0" y1="-96" x2="0" y2="96"/>
+				<line x1="-96" y1="0" x2="96" y2="0"/>
+				<line x1="-68" y1="-68" x2="68" y2="68"/>
+				<line x1="-68" y1="68" x2="68" y2="-68"/>
+			</g>
+			<g fill="#6b4f2a">
+				<polygon points="0,-70 12,-12 0,-30 -12,-12"/>
+				<polygon points="-70,0 -12,-12 -30,0 -12,12"/>
+				<polygon points="70,0 12,-12 30,0 12,12"/>
+				<polygon points="0,70 -12,12 0,30 12,12"/>
+			</g>
+			<g fill="#a9712f">
+				<polygon points="0,-50 10,-10 0,-24 -10,-10"/>
+				<polygon points="0,50 10,10 0,24 -10,10"/>
+				<polygon points="-50,0 -10,-10 -24,0 -10,10"/>
+				<polygon points="50,0 10,-10 24,0 10,10"/>
+				<polygon points="-36,-36 -44,-10 -26,-26 -10,-44"/>
+				<polygon points="36,-36 10,-44 26,-26 44,-10"/>
+				<polygon points="36,36 44,10 26,26 10,44"/>
+				<polygon points="-36,36 -10,44 -26,26 -44,10"/>
+			</g>
+			<text x="0" y="-112" text-anchor="middle" font-family="Georgia, serif" font-size="30"
+				  font-weight="bold" fill="#4a3420">N</text>
+		</g>
+	</svg>
 </div>
+
 </body>
 </html>

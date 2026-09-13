@@ -1,35 +1,91 @@
 ﻿body {
 	margin: 0;
+	background: #5b6270;
+	padding: 4px;
+	box-sizing: border-box;
 }
 
-/* Container hides anything sticking out when zooming */
-.zoom-container {
-	width: 100%;
-	height: 85vh;
-	overflow: hidden;
-	border: 2px solid #ccc;
+/* ------------------------------------------------------------------ */
+/* Static frame                                                       */
+/* ------------------------------------------------------------------ */
+.map-frame {
 	position: relative;
+	max-width: 1500px;
+	margin: 12px auto;
+	padding: 18px;
+	background: #d8c9a3;
+	border: 6px double #6b4f2a;
+	box-shadow:
+		inset 0 0 0 1px #6b4f2a,
+		0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* Static map title */
+.map-title {
+	position: absolute;
+	top: 6px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 7;
+	text-align: center;
+	pointer-events: none;
+	background: linear-gradient(#e0d2ac, #d4c399);
+	border: 2px solid #6b4f2a;
+	border-radius: 6px;
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+	padding: 6px 30px 8px;
+	white-space: nowrap;
+}
+
+.map-title h1 {
+	margin: 0;
+	font-family: Georgia, "Times New Roman", serif;
+	font-size: 32px;
+	font-weight: bold;
+	letter-spacing: 6px;
+	color: #4a3420;
+}
+
+.map-subtitle {
+	display: block;
+	font-family: Georgia, "Times New Roman", serif;
+	font-style: italic;
+	font-size: 13px;
+	letter-spacing: 1px;
+	color: #7a5c32;
+}
+
+/* ------------------------------------------------------------------ */
+/* Interactive map viewport                                            */
+/* ------------------------------------------------------------------ */
+.map-viewport {
+	position: relative;
+	width: 100%;
+	height: 82vh;
+	overflow: hidden;
+	border: 2px solid #6b4f2a;
+	background: #cfe0e8;
 	cursor: grab;
-	margin: 0 auto;
+	margin-top: 30px;
 	/* All gestures are handled in JS (pinch zoom + pan) */
 	touch-action: none;
 	user-select: none;
 	-webkit-user-select: none;
 }
 
-.zoom-container:active {
+.map-viewport:active {
 	cursor: grabbing;
 }
 
-.zoom-graphic {
-	width: 100%;
-	height: 100%;
+.map-content {
+	position: absolute;
+	inset: 0;
 	/* Translate/scale math assumes the origin sits at the top-left */
 	transform-origin: 0 0;
 	touch-action: none;
 }
 
-.zoom-graphic img {
+.map-content img {
 	-webkit-user-drag: none;
 	user-select: none;
 	-webkit-touch-callout: none;
@@ -40,7 +96,44 @@
 	height: 100%;
 }
 
-/* Styling for elements that will fade out */
+/* ------------------------------------------------------------------ */
+/* Static windrose (compass rose)                                      */
+/* ------------------------------------------------------------------ */
+.windrose {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 170px;
+	height: 170px;
+	z-index: 6;
+	pointer-events: none;
+	filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+}
+
+/* ------------------------------------------------------------------ */
+/* Crosshair + coordinate readout */
+.map-coords {
+	position: absolute;
+	bottom: 10px;
+	right: 12px;
+	z-index: 6;
+	background: rgba(224, 210, 172, 0.92);
+	border: 1px solid #6b4f2a;
+	border-radius: 4px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+	padding: 4px 12px;
+	font-family: Georgia, "Times New Roman", serif;
+	font-size: 15px;
+	letter-spacing: 0.5px;
+	color: #4a3420;
+	pointer-events: none;
+	white-space: nowrap;
+	transition: opacity 0.15s ease;
+}
+
+/* ------------------------------------------------------------------ */
+/* Fading clouds                                                       */
+/* ------------------------------------------------------------------ */
 .fade-element {
 	position: absolute;
 	background: rgba(0, 0, 0, 0);
@@ -49,19 +142,17 @@
 	border-radius: 20px;
 	font-family: sans-serif;
 	font-size: 12px;
-	pointer-events: none; /* Stops elements from breaking pointer position */
+	pointer-events: none;
 	transition: opacity 0.3s ease, visibility 0.3s ease;
-	opacity: 0.8;
+	opacity: 0.95;
 	visibility: visible;
 }
 
-/* Absolute positioning for the cloud overlay */
 .cloud {
 	top: 0;
 	left: 0;
 }
 
-/* This class triggers the fade out */
 .fade-out {
 	opacity: 0;
 	visibility: hidden;
