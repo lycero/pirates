@@ -43,22 +43,44 @@ function centerOnMapPoint(mapX, mapY) {
 }
 
 function createMapObject(obj) {
+	if (obj.type === 'clouds') {
+		const img = document.createElement('img');
+		img.src = obj.src;
+		img.alt = obj.alt || '';
+		img.draggable = false;
+		img.style.position = 'absolute';
+		img.style.left = obj.position.left;
+		img.style.top = obj.position.top;
+		img.style.width = obj.size.width;
+		img.style.height = obj.size.height;
+		if (obj.classes) {
+			obj.classes.forEach(cls => img.classList.add(cls));
+		}
+		return img;
+	}
   if (obj.type === 'image') {
+    const container = document.createElement('div');
+    container.style.position = 'absolute';
+
+    const isFixed = obj.fixedPosition !== false;
+    if (isFixed) {
+      container.style.left = `${obj.position.left}px`;
+      container.style.top = `${obj.position.top}px`;
+    } else {
+      container.style.left = obj.position.left;
+      container.style.top = obj.position.top;
+    }
+    container.style.transform = 'translate(-50%, 0)';
+
     const img = document.createElement('img');
     img.src = obj.src;
     img.alt = obj.alt || '';
     img.draggable = false;
-    img.style.position = 'absolute';
 
-    const isFixed = obj.fixedPosition !== false;
     if (isFixed) {
-      img.style.left = `${obj.position.left}px`;
-      img.style.top = `${obj.position.top}px`;
       img.style.width = `${obj.size.width}px`;
       img.style.height = `${obj.size.height}px`;
     } else {
-      img.style.left = obj.position.left;
-      img.style.top = obj.position.top;
       img.style.width = obj.size.width;
       img.style.height = obj.size.height;
     }
@@ -67,14 +89,23 @@ function createMapObject(obj) {
       obj.classes.forEach(cls => img.classList.add(cls));
     }
 
+    container.appendChild(img);
+
+    if (obj.alt) {
+      const label = document.createElement('span');
+      label.className = 'map-label';
+      label.textContent = obj.alt;
+      container.appendChild(label);
+    }
+
     if (obj.href) {
       const link = document.createElement('a');
       link.href = obj.href;
-      link.appendChild(img);
+      link.appendChild(container);
       return link;
     }
 
-    return img;
+    return container;
   }
   return document.createElement('div');
 }

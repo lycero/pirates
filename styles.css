@@ -166,3 +166,23 @@
 	opacity: 0;
 	visibility: hidden;
 }
+
+.map-label {
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	white-space: nowrap;
+	margin-top: 6px;
+	font-family: Georgia, "Times New Roman", serif;
+	font-size: 12px;
+	font-weight: 500;
+	color: #4a3420;
+	text-shadow:
+		-1px -1px 0 #d8c9a3,
+		1px -1px 0 #d8c9a3,
+		-1px 1px 0 #d8c9a3,
+		1px 1px 0 #d8c9a3;
+	pointer-events: none;
+	user-select: none;
+}
