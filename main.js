@@ -247,7 +247,7 @@ viewport.addEventListener('pointermove', (e) => {
 		const dist = Math.hypot(values[0].x - values[1].x, values[0].y - values[1].y);
 
 		if (pinchDist > 0 && dist > 0) {
-			const newScale = Math.min(Math.max(1, scale * (dist / pinchDist)), Constants.MaxZoom);
+			const newScale = Math.min(Math.max(0.5, scale * (dist / pinchDist)), Constants.MaxZoom);
 			const rect = viewport.getBoundingClientRect();
 			zoomAtPoint(newScale, midX - rect.left, midY - rect.top);
 		}
