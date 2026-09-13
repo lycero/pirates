@@ -11,11 +11,55 @@ const MAP_HEIGHT = 1000;
 const viewport = document.getElementById('viewport');
 const mapContent = document.getElementById('map-content');
 const coordsEl = document.getElementById('coords');
-const fadeElements = document.querySelectorAll('.fade-element');
 
 let scale = 1;
 let translateX = 0;
 let translateY = 0;
+let fadeElements = [];
+
+async function loadMapObjects() {
+  try {
+    const response = await fetch('map-objects.json');
+    const data = await response.json();
+
+    data.objects.forEach(obj => {
+      const element = createMapObject(obj);
+      mapContent.appendChild(element);
+    });
+
+    fadeElements = document.querySelectorAll('.fade-element');
+  } catch (error) {
+    console.error('Failed to load map objects:', error);
+  }
+}
+
+function createMapObject(obj) {
+  if (obj.type === 'image') {
+    const img = document.createElement('img');
+    img.src = obj.src;
+    img.alt = obj.alt || '';
+    img.draggable = false;
+    img.style.position = 'absolute';
+    img.style.left = obj.position.left;
+    img.style.top = obj.position.top;
+    img.style.width = obj.size.width;
+    img.style.height = obj.size.height;
+
+    if (obj.classes) {
+      obj.classes.forEach(cls => img.classList.add(cls));
+    }
+
+    if (obj.href) {
+      const link = document.createElement('a');
+      link.href = obj.href;
+      link.appendChild(img);
+      return link;
+    }
+
+    return img;
+  }
+  return document.createElement('div');
+}
 
 const pointers = new Map(); // pointerId -> {x, y} in screen coordinates
 let pinchDist = -1; // Last distance between two fingers
@@ -215,3 +259,5 @@ viewport.addEventListener('pointermove', (e) => {
 
 	setCoords(e.clientX, e.clientY);
 });
+
+loadMapObjects();
