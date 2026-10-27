@@ -67,7 +67,7 @@
 	background: #cfe0e8;
 	cursor: grab;
 	margin-top: 30px;
-	/* All gestures are handled in JS (pinch zoom + pan) */
+	/* Panning is handled in JS */
 	touch-action: none;
 	user-select: none;
 	-webkit-user-select: none;
@@ -99,6 +99,98 @@
 .water-background {
 	position: absolute;
 	inset: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Isle navigation                                                     */
+/* ------------------------------------------------------------------ */
+.isle-menu {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	z-index: 8;
+	max-height: calc(100% - 20px);
+	overflow-y: auto;
+	padding: 8px 10px;
+	background: rgba(224, 210, 172, 0.95);
+	border: 2px solid #6b4f2a;
+	border-radius: 6px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.isle-menu-title {
+	margin: 0 0 6px;
+	font-family: Georgia, "Times New Roman", serif;
+	font-size: 13px;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: #4a3420;
+}
+
+.isle-menu-list {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.isle-menu-button {
+	width: 100%;
+	padding: 6px 12px;
+	border: 1px solid #6b4f2a;
+	border-radius: 4px;
+	background: linear-gradient(#f0e4c4, #ddcda4);
+	color: #4a3420;
+	font-family: Georgia, "Times New Roman", serif;
+	font-size: 14px;
+	text-align: left;
+	cursor: pointer;
+}
+
+.isle-menu-button:hover {
+	background: linear-gradient(#f7edd3, #e7d8b1);
+}
+
+.isle-menu-button:focus-visible {
+	outline: 2px solid #6b4f2a;
+	outline-offset: 2px;
+}
+
+.isle-menu-button[aria-pressed="true"] {
+	border-color: #4a3420;
+	background: #6b4f2a;
+	color: #f4ead2;
+}
+
+@media (max-width: 700px) {
+	.isle-menu {
+		top: 8px;
+		right: 8px;
+		left: 8px;
+		max-height: none;
+		overflow: visible;
+		padding: 6px 8px;
+	}
+
+	.isle-menu-title {
+		display: none;
+	}
+
+	.isle-menu-list {
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 6px;
+	}
+
+	.isle-menu-button {
+		width: auto;
+		padding: 5px 10px;
+		font-size: 13px;
+		white-space: nowrap;
+	}
 }
 
 /* ------------------------------------------------------------------ */

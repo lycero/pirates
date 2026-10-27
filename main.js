@@ -2,7 +2,7 @@
 	static CloudOpacity = 0.75;
 	static FullOpacityZoom = 1.5;
 	static MinOpacityZoom = 3;
-	static MaxZoom = 16;
+	static FocusZoom = 8;
 }
 
 const MAP_WIDTH = 1615;
@@ -16,20 +16,35 @@ let scale = 1;
 let translateX = 0;
 let translateY = 0;
 let fadeElements = [];
+let mapObjects = [];
+let focusAnimation = null;
+let activePointerId = null;
+let panStart = null;
+let panOrigin = null;
+let dragged = false;
 
 async function loadMapObjects() {
   try {
-    const response = await fetch('map-objects.json');
-    const data = await response.json();
+    const responses = await Promise.all([
+      fetch('deco.json'),
+      fetch('isles.json'),
+      fetch('clouds.json'),
+    ]);
+    const [deco, isles, clouds] = await Promise.all(
+      responses.map(response => response.json())
+    );
 
-    data.objects.forEach(obj => {
+    [...deco, ...isles, ...clouds].forEach(obj => {
       const element = createMapObject(obj);
       mapContent.appendChild(element);
+      mapObjects.push({ obj, element });
     });
 
     fadeElements = document.querySelectorAll('.fade-element');
+    buildIsleMenu(isles);
 
     centerOnMapPoint(1050, 450);
+    updateOpacity(scale);
   } catch (error) {
     console.error('Failed to load map objects:', error);
   }
@@ -40,6 +55,109 @@ function centerOnMapPoint(mapX, mapY) {
   translateX = rect.width / 2 - mapX * scale;
   translateY = rect.height / 2 - mapY * scale;
   updateTransform();
+}
+
+function buildIsleMenu(objects) {
+  const list = document.getElementById('isle-menu-list');
+  if (!list) return;
+
+  objects
+    .filter(obj => obj.type === 'image' && obj.alt && obj.alt !== 'waves')
+    .forEach(obj => {
+      list.appendChild(createMenuItem(obj.alt, () => focusIsle(obj)));
+    });
+
+  const resetItem = createMenuItem('Whole map', resetMapView);
+  resetItem.querySelector('button').setAttribute('aria-pressed', 'true');
+  list.appendChild(resetItem);
+}
+
+function createMenuItem(label, onClick) {
+  const item = document.createElement('li');
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'isle-menu-button';
+  button.textContent = label;
+  button.setAttribute('aria-pressed', 'false');
+  button.addEventListener('click', () => {
+    setActiveMenuButton(button);
+    onClick();
+  });
+  item.appendChild(button);
+  return item;
+}
+
+function setActiveMenuButton(activeButton) {
+  document.querySelectorAll('.isle-menu-button').forEach(button => {
+    button.setAttribute('aria-pressed', String(button === activeButton));
+  });
+}
+
+function focusIsle(obj) {
+  const entry = mapObjects.find(item => item.obj === obj);
+  if (!entry) return;
+
+  const img = entry.element.querySelector('img');
+  const width = Math.max(img?.offsetWidth || Number(obj.size.width) || 1, 1);
+  const height = Math.max(img?.offsetHeight || width, 1);
+
+  const rect = viewport.getBoundingClientRect();
+  const targetScale = Math.min(
+    Constants.FocusZoom,
+    Math.max(1.5, Math.min(
+      (rect.width * 0.55) / width,
+      (rect.height * 0.55) / height
+    ))
+  );
+
+  animateMapTo(
+    Number(obj.position.left),
+    Number(obj.position.top) + height / 2,
+    targetScale
+  );
+}
+
+function resetMapView() {
+  animateMapTo(1050, 450, 1);
+}
+
+function animateMapTo(mapX, mapY, targetScale) {
+  if (focusAnimation !== null) {
+    cancelAnimationFrame(focusAnimation);
+  }
+
+  const rect = viewport.getBoundingClientRect();
+  const endX = rect.width / 2 - mapX * targetScale;
+  const endY = rect.height / 2 - mapY * targetScale;
+  const startX = translateX;
+  const startY = translateY;
+  const startScale = scale;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const duration = reducedMotion ? 0 : 650;
+  const startTime = performance.now();
+
+  function step(now) {
+    const progress = duration === 0
+      ? 1
+      : Math.min((now - startTime) / duration, 1);
+    const eased = progress < 0.5
+      ? 4 * progress * progress * progress
+      : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+    scale = startScale + (targetScale - startScale) * eased;
+    translateX = startX + (endX - startX) * eased;
+    translateY = startY + (endY - startY) * eased;
+    updateTransform();
+    updateOpacity(scale);
+
+    if (progress < 1) {
+      focusAnimation = requestAnimationFrame(step);
+    } else {
+      focusAnimation = null;
+    }
+  }
+
+  focusAnimation = requestAnimationFrame(step);
 }
 
 function createMapObject(obj) {
@@ -110,12 +228,6 @@ function createMapObject(obj) {
   return document.createElement('div');
 }
 
-const pointers = new Map(); // pointerId -> {x, y} in screen coordinates
-let pinchDist = -1; // Last distance between two fingers
-let panStart = null; // {x, y} where the first pointer went down
-let panOrigin = null; // {x, y} translate value when panning started
-let dragged = false; // True if a drag moved beyond the click threshold
-
 function updateTransform() {
 	mapContent.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
 	updateCenterCoords();
@@ -135,16 +247,6 @@ function updateOpacity(currentScale) {
 		element.style.opacity = opacity;
 		element.style.visibility = opacity === 0 ? 'hidden' : 'visible';
 	});
-}
-
-// Keeps the viewport-space point (px, py) fixed while changing the zoom level
-function zoomAtPoint(newScale, px, py) {
-	const ratio = newScale / scale;
-	translateX = px - (px - translateX) * ratio;
-	translateY = py - (py - translateY) * ratio;
-	scale = newScale;
-	updateTransform();
-	updateOpacity(scale);
 }
 
 /* ------------------------------------------------------------------ */
@@ -201,31 +303,23 @@ function updateCenterCoords() {
 // Prevent the browser from starting a native drag on the images
 viewport.addEventListener('dragstart', (e) => e.preventDefault());
 
-viewport.addEventListener('wheel', (e) => {
-	e.preventDefault();
-
-	const rect = viewport.getBoundingClientRect();
-	const factor = Math.pow(1.1, -e.deltaY / 100);
-	const newScale = Math.min(Math.max(0.5, scale * factor), Constants.MaxZoom);
-
-	zoomAtPoint(newScale, e.clientX - rect.left, e.clientY - rect.top);
-}, { passive: false });
-
 viewport.addEventListener('pointerdown', (e) => {
 	if (e.pointerType === 'mouse' && e.button !== 0) return;
-
-	pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-
-	if (pointers.size === 1) {
-		panStart = { x: e.clientX, y: e.clientY };
-		panOrigin = { x: translateX, y: translateY };
+	if (e.target.closest('.isle-menu')) {
 		dragged = false;
+		return;
+	}
+	if (activePointerId !== null) return;
+
+	if (focusAnimation !== null) {
+		cancelAnimationFrame(focusAnimation);
+		focusAnimation = null;
 	}
 
-	if (pointers.size === 2) {
-		const values = [...pointers.values()];
-		pinchDist = Math.hypot(values[0].x - values[1].x, values[0].y - values[1].y);
-	}
+	activePointerId = e.pointerId;
+	panStart = { x: e.clientX, y: e.clientY };
+	panOrigin = { x: translateX, y: translateY };
+	dragged = false;
 
 	try {
 		viewport.setPointerCapture(e.pointerId);
@@ -235,54 +329,24 @@ viewport.addEventListener('pointerdown', (e) => {
 });
 
 viewport.addEventListener('pointermove', (e) => {
-	if (!pointers.has(e.pointerId)) return;
+	if (e.pointerId !== activePointerId || !panStart || !panOrigin) return;
 
-	pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-
-	if (pointers.size === 2) {
-		// Pinch zoom, anchored at the midpoint between the two fingers
-		const values = [...pointers.values()];
-		const midX = (values[0].x + values[1].x) / 2;
-		const midY = (values[0].y + values[1].y) / 2;
-		const dist = Math.hypot(values[0].x - values[1].x, values[0].y - values[1].y);
-
-		if (pinchDist > 0 && dist > 0) {
-			const newScale = Math.min(Math.max(0.5, scale * (dist / pinchDist)), Constants.MaxZoom);
-			const rect = viewport.getBoundingClientRect();
-			zoomAtPoint(newScale, midX - rect.left, midY - rect.top);
-		}
-		pinchDist = dist;
-	} else if (pointers.size === 1 && panStart) {
-		// Pan: 1:1 screen-space movement
-		const dx = e.clientX - panStart.x;
-		const dy = e.clientY - panStart.y;
-		if (Math.abs(dx) + Math.abs(dy) > 8) {
-			dragged = true;
-		}
-		translateX = panOrigin.x + dx;
-		translateY = panOrigin.y + dy;
-		updateTransform();
+	// Pan: 1:1 screen-space movement
+	const dx = e.clientX - panStart.x;
+	const dy = e.clientY - panStart.y;
+	if (Math.abs(dx) + Math.abs(dy) > 8) {
+		dragged = true;
 	}
+	translateX = panOrigin.x + dx;
+	translateY = panOrigin.y + dy;
+	updateTransform();
 });
 
 function endPointer(e) {
-	if (!pointers.has(e.pointerId)) return;
-	pointers.delete(e.pointerId);
-	if (pointers.size < 2) {
-		pinchDist = -1;
-	}
-	if (pointers.size === 1) {
-		// A finger was lifted after a pinch. Re-baseline the pan state to the
-		// remaining pointer's current position so continuing a drag doesn't
-		// snap back to the pre-pinch translation.
-		const remaining = [...pointers.values()][0];
-		panStart = { x: remaining.x, y: remaining.y };
-		panOrigin = { x: translateX, y: translateY };
-		dragged = true;
-	} else if (pointers.size === 0) {
-		panStart = null;
-		panOrigin = null;
-	}
+	if (e.pointerId !== activePointerId) return;
+	activePointerId = null;
+	panStart = null;
+	panOrigin = null;
 }
 
 viewport.addEventListener('pointerup', endPointer);
@@ -304,7 +368,7 @@ viewport.addEventListener('click', (e) => {
 /* ------------------------------------------------------------------ */
 
 viewport.addEventListener('pointermove', (e) => {
-	if (pointers.size > 0) return;
+	if (activePointerId !== null) return;
 
 	setCoords(e.clientX, e.clientY);
 });
