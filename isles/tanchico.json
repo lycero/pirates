@@ -1,0 +1,13 @@
+{
+	"type": "image",
+	"src": "images/isle_tanchico.svg",
+	"alt": "Tanchico",
+	"position": {
+		"left": 700,
+		"top": 500
+	},
+	"size": {
+		"width": 30
+	},
+	"fixedPosition": true
+}

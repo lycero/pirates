@@ -1,0 +1,13 @@
+{
+	"type": "image",
+	"src": "images/lighthouse.svg",
+	"alt": "Lighthouse",
+	"position": {
+		"left": 900,
+		"top": 580
+	},
+	"size": {
+		"width": 30
+	},
+	"fixedPosition": true
+}

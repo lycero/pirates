@@ -1,0 +1,13 @@
+{
+	"type": "image",
+	"src": "images/port_indigo.svg",
+	"alt": "Port Indigo",
+	"position": {
+		"left": 1150,
+		"top": 550
+	},
+	"size": {
+		"width": 20
+	},
+	"fixedPosition": true
+}

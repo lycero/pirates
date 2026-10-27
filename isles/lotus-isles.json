@@ -1,0 +1,13 @@
+{
+	"type": "image",
+	"src": "images/lotus_isles.svg",
+	"alt": "Lotus Isles",
+	"position": {
+		"left": 1000,
+		"top": 310
+	},
+	"size": {
+		"width": 30
+	},
+	"fixedPosition": true
+}

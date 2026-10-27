@@ -1,0 +1,13 @@
+{
+	"type": "image",
+	"src": "images/isle_marnea.svg",
+	"alt": "Marnea",
+	"position": {
+		"left": 920,
+		"top": 850
+	},
+	"size": {
+		"width": 400
+	},
+	"fixedPosition": true
+}

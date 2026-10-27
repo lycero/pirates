@@ -25,13 +25,22 @@ let dragged = false;
 
 async function loadMapObjects() {
   try {
-    const responses = await Promise.all([
+    const [decoResponse, isleIndexResponse, cloudsResponse] = await Promise.all([
       fetch('deco.json'),
-      fetch('isles.json'),
+      fetch('isles/index.json'),
       fetch('clouds.json'),
     ]);
-    const [deco, isles, clouds] = await Promise.all(
-      responses.map(response => response.json())
+    const [deco, isleFiles, clouds] = await Promise.all([
+      decoResponse.json(),
+      isleIndexResponse.json(),
+      cloudsResponse.json(),
+    ]);
+
+    const isleResponses = await Promise.all(
+      isleFiles.map(file => fetch(`isles/${file}`))
+    );
+    const isles = await Promise.all(
+      isleResponses.map(response => response.json())
     );
 
     [...deco, ...isles, ...clouds].forEach(obj => {

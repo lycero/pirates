@@ -1,0 +1,13 @@
+{
+	"type": "image",
+	"src": "images/meteor.png",
+	"alt": "Meteor",
+	"position": {
+		"left": 1082,
+		"top": 380
+	},
+	"size": {
+		"width": 30
+	},
+	"fixedPosition": true
+}

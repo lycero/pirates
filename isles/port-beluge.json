@@ -1,0 +1,14 @@
+{
+	"type": "image",
+	"src": "images/portbeluge.png",
+	"alt": "Port Beluge",
+	"href": "https://portbeluge.pages.dev/",
+	"position": {
+		"left": 1050,
+		"top": 450
+	},
+	"size": {
+		"width": 50
+	},
+	"fixedPosition": true
+}

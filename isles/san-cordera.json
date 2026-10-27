@@ -1,0 +1,13 @@
+{
+	"type": "image",
+	"src": "images/isle_san_cordera.svg",
+	"alt": "San Cordera",
+	"position": {
+		"left": 1405,
+		"top": 450
+	},
+	"size": {
+		"width": 50
+	},
+	"fixedPosition": true
+}

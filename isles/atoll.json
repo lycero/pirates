@@ -1,0 +1,13 @@
+{
+	"type": "image",
+	"src": "images/isle_c.svg",
+	"alt": "Shipwreck Atoll",
+	"position": {
+		"left": 850,
+		"top": 410
+	},
+	"size": {
+		"width": 30
+	},
+	"fixedPosition": true
+}
